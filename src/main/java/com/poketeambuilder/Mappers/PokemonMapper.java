@@ -12,17 +12,17 @@ import com.poketeambuilder.DTO.Pokemon;
 public class PokemonMapper implements RowMapper<Pokemon> {
 
     public Pokemon mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Pokemon pokemon = new Pokemon();
-        pokemon.setPokedexID(rs.getInt("pokedexID"));
-        pokemon.setPokemonName(rs.getString("pokemonName"));
-        pokemon.setPokemonType(rs.getString("pokemonType"));
-        pokemon.setPokedexEntry(rs.getString("pokedexEntry"));
+        Pokemon pokemon = new Pokemon();  
+        pokemon.setPokedexID(rs.getInt("pokedex_id"));
+        pokemon.setPokemonName(rs.getString("pokemon_name"));
+        pokemon.setPokemonType(rs.getString("pokemon_type"));
         pokemon.setHp(rs.getInt("hp"));
         pokemon.setAttack(rs.getInt("attack"));
         pokemon.setDefence(rs.getInt("defence"));
-        pokemon.setSpecialAttack(rs.getInt("specialAttack"));
-        pokemon.setSpecialDefence(rs.getInt("specialDefence"));
+        pokemon.setSpecialAttack(rs.getInt("special_attack"));
+        pokemon.setSpecialDefence(rs.getInt("special_defence"));
         pokemon.setSpeed(rs.getInt("speed"));
+        pokemon.setTotal(rs.getInt("total"));
         return pokemon;
     }
     

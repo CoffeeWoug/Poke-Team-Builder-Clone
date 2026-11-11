@@ -1,0 +1,18 @@
+** Poke team builder requirements **
+
+- Display a list of pokemon 
+    - Pokedex from each generation or by game
+- Show a pokemon weaknesses, resistances and immunities
+    - Show teams weaknesses, resistances and immunities
+- Show pokeon base stats    
+- Select 6 unique pokemon for a team
+- Choose 1 item for any pokemon to carry
+    - Display a list of items
+- Select pokemon abilities
+    - Display a list of abilities
+- Save pokemon team to account
+- Display moves a pokemon can learn
+    - Display a list of moves
+- Select a moveset for each pokemon
+- Show location of pokemon in game
+

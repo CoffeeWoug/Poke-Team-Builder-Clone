@@ -17,4 +17,20 @@ public class PokedexService {
     public List<Pokemon> getAllPokemon() {
         return pokedexDAO.getAllPokemon();
     }
+
+    public Pokemon getPokemon(String pokemonName) {
+        return pokedexDAO.getPokemon(pokemonName);
+    }
+
+    public void createPokemon(Pokemon pokemon) {
+        pokedexDAO.createPokemon(pokemon);
+    }
+
+    public void editPokemon(String pokemonName, Pokemon pokemon) {
+        pokedexDAO.editPokemon(pokemonName, pokemon);
+    }
+
+    public void deletePokemon(String pokemonName) {
+        pokedexDAO.deletePokemon(pokemonName);
+    }
 }
