@@ -23,7 +23,8 @@ public class Pokemon {
     
     private int pokedexID;
     private String pokemonName;
-    private String pokemonType;
+    private String pokemonPrimaryType;
+    private String pokemonSecondaryType;
     private int hp;
     private int attack;
     private int defence;
@@ -38,10 +39,11 @@ public class Pokemon {
 
     }
 
-    public Pokemon(int pokedexID, String pokemonName, String pokemonType, int hp, int attack, int defence, int specialAttack, int specialDefence, int speed, int total, List<String> resistances, List<String> weaknesses) {
+    public Pokemon(int pokedexID, String pokemonName, String pokemonPrimaryType, String pokemonSecondaryType, int hp, int attack, int defence, int specialAttack, int specialDefence, int speed, int total, List<String> resistances, List<String> weaknesses) {
         this.pokedexID = pokedexID;
         this.pokemonName = pokemonName;
-        this.pokemonType = pokemonType;
+        this.pokemonPrimaryType = pokemonPrimaryType;
+        this.pokemonSecondaryType = pokemonSecondaryType;
         this.hp = hp;
         this.attack = attack;
         this.defence = defence;
@@ -69,12 +71,20 @@ public class Pokemon {
         this.pokemonName = pokemonName;
     }
 
-    public String getPokemonType() {
-        return pokemonType;
+    public String getPokemonPrimaryType() {
+        return pokemonPrimaryType;
     }
 
-    public void setPokemonType(String pokemonType) {
-        this.pokemonType = pokemonType;
+    public void setPokemonPrimaryType(String pokemonPrimaryType) {
+        this.pokemonPrimaryType = pokemonPrimaryType;
+    }
+
+    public String getPokemonSecondaryType() {
+        return this.pokemonSecondaryType;
+    }
+
+    public void setPokemonSecondaryType(String pokemonSecondaryType) {
+        this.pokemonSecondaryType = pokemonSecondaryType;
     }
 
     public int getHp() {

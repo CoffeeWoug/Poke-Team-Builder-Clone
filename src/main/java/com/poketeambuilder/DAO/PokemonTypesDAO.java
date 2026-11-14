@@ -16,11 +16,5 @@ public class PokemonTypesDAO {
     public void setJDBCTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
-    public List<String> pokemonWeaknesses() {
-        String sql = ""
-    }
-
-    
-    
+        
 }

@@ -10,9 +10,13 @@ import com.poketeambuilder.DTO.Pokemon;
 
 @Service 
 public class PokedexService {
+ 
+    private PokedexDAO pokedexDAO;
 
     @Autowired 
-    private PokedexDAO pokedexDAO;
+    public void setPokedexDAO(PokedexDAO pokedexDAO) {
+        this.pokedexDAO = pokedexDAO;
+    } 
     
     public List<Pokemon> getAllPokemon() {
         return pokedexDAO.getAllPokemon();

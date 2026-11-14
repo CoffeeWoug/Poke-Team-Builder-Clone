@@ -14,7 +14,6 @@ import com.poketeambuilder.DTO.Pokemon;
 import com.poketeambuilder.Service.PokedexService;
 
 @RestController 
-@RequestMapping("/pokemon")
 public class PokeDexController {
 
     private PokedexService pokedexService;
@@ -24,7 +23,7 @@ public class PokeDexController {
         this.pokedexService = pokedexService;
     }
 
-    @RequestMapping
+    @RequestMapping("/pokemon")
     public List<Pokemon> getAllPokemon() {
         return pokedexService.getAllPokemon();
     }
