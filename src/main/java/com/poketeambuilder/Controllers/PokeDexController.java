@@ -28,12 +28,12 @@ public class PokeDexController {
         return pokedexService.getAllPokemon();
     }
 
-    @RequestMapping("/{pokemonName}")
+    @RequestMapping("/pokemon/{pokemonName}")
     public Pokemon getPokemon(@PathVariable("pokemonName") String pokemonName) {
         return pokedexService.getPokemon(pokemonName);
     }
 
-    @PostMapping
+    @PostMapping("/pokemon")
     public void createPokemon(@RequestBody Pokemon pokemon) {
         pokedexService.createPokemon(pokemon);
     }

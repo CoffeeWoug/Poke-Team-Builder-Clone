@@ -45,25 +45,36 @@ public class PokedexDAO {
     }
 
     public Pokemon getPokemon(String pokemonName) {
-        /* 
-        String sql = "SELECT * FROM gen3Pokemon WHERE pokemon_name = ?";
-        Pokemon pokemon = jdbcTemplate.queryForObject(sql, pokemonMapper, pokemonName);
+        String sql = "SELECT pokemon.pokemon_id, pokemon.pokemon_name, " +
+        "pokemon.pokemon_primary_type, " +
+        "pokemon_secondary_type, " + 
+        "pokemon.pokemon_hp, " +
+        "pokemon.pokemon_attack, pokemon.pokemon_defence, pokemon.pokemon_special_attack, " +
+        "pokemon.pokemon_special_defence, pokemon.pokemon_speed, pokemon.pokemon_total " +
+        "FROM pokemon " + 
+        "INNER JOIN pokemonTypes AS type_one " +
+        "ON pokemon.pokemon_primary_type = type_one.type_id " +
+        "LEFT JOIN pokemonTypes AS type_two " +
+        "ON pokemon.pokemon_secondary_type = type_two.type_id " +
+        "WHERE pokemon.pokemon_name = ?";
+        Pokemon pokemon = jdbcTemplate.queryForObject(sql, pokemonMapper, pokemonName); 
         return pokemon;
-        */
-       return null;
     }
 
     public void createPokemon(Pokemon pokemon) {
-        /* 
-        String sql = "INSERT INTO gen3Pokemon" +
-        "(pokedex_id, pokemon_name, pokemon_type, hp, attack, defence" + 
-        ", special_attack, special_defence, speed, total)" +  
-        "VALUES(?,?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql, pokemon.getPokedexID(), pokemon.getPokemonName(), 
-        pokemon.getPokemonType(), pokemon.getHp(), 
+        String getType = "SELECT type_id " +
+        "FROM pokemon_types " +
+        "WHERE pokemon_type_name = ?";
+
+        
+        String sql = "INSERT INTO pokemon (pokemon_id, pokemon_name, pokemon_primary_type, " +
+        "pokemon_secondary_type, pokemon_hp, pokemon_attack, pokemon_defence, " + 
+        "pokemon_special_attack, pokemon_special_defence, pokemon_speed, pokemon_total " + 
+        "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sql, pokemon.getPokedexID(), pokemon.getPokemonName(),
+        pokemon.getPokemonPrimaryType(), pokemon.getPokemonSecondaryType(), pokemon.getHp(),
         pokemon.getAttack(), pokemon.getDefence(), pokemon.getSpecialAttack(),
         pokemon.getSpecialDefence(), pokemon.getSpeed(), pokemon.getTotal());
-        */
     }
 
     public void editPokemon(String pokemonName, Pokemon pokemon) {
