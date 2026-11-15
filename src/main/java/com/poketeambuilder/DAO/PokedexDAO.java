@@ -44,10 +44,12 @@ public class PokedexDAO {
         return pokemon;
     }
 
+    /*pokemon_type_name renamed due to mapper class, the mapper cannot find pokemon_type_name,
+      it has nothing to do with the ON statement, that is different */
     public Pokemon getPokemon(String pokemonName) {
         String sql = "SELECT pokemon.pokemon_id, pokemon.pokemon_name, " +
-        "pokemon.pokemon_primary_type, " +
-        "pokemon_secondary_type, " + 
+        "type_one.pokemon_type_name AS pokemon_primary_type, " +
+        "type_two.pokemon_type_name AS pokemon_secondary_type, " + 
         "pokemon.pokemon_hp, " +
         "pokemon.pokemon_attack, pokemon.pokemon_defence, pokemon.pokemon_special_attack, " +
         "pokemon.pokemon_special_defence, pokemon.pokemon_speed, pokemon.pokemon_total " +
@@ -63,16 +65,24 @@ public class PokedexDAO {
 
     public void createPokemon(Pokemon pokemon) {
         String getType = "SELECT type_id " +
-        "FROM pokemon_types " +
+        "FROM pokemonTypes " +
         "WHERE pokemon_type_name = ?";
 
-        
+        int primaryPokemonType = jdbcTemplate.queryForObject(getType, Integer.class,
+        pokemon.getPokemonPrimaryType());
+
+        Integer secondaryPokemonType = null;
+        if(pokemon.getPokemonSecondaryType() != null) {
+            secondaryPokemonType = jdbcTemplate.queryForObject(getType, Integer.class,
+            pokemon.getPokemonSecondaryType());
+        }
+
         String sql = "INSERT INTO pokemon (pokemon_id, pokemon_name, pokemon_primary_type, " +
         "pokemon_secondary_type, pokemon_hp, pokemon_attack, pokemon_defence, " + 
-        "pokemon_special_attack, pokemon_special_defence, pokemon_speed, pokemon_total " + 
+        "pokemon_special_attack, pokemon_special_defence, pokemon_speed, pokemon_total) " + 
         "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql, pokemon.getPokedexID(), pokemon.getPokemonName(),
-        pokemon.getPokemonPrimaryType(), pokemon.getPokemonSecondaryType(), pokemon.getHp(),
+        primaryPokemonType, secondaryPokemonType, pokemon.getHp(),
         pokemon.getAttack(), pokemon.getDefence(), pokemon.getSpecialAttack(),
         pokemon.getSpecialDefence(), pokemon.getSpeed(), pokemon.getTotal());
     }
