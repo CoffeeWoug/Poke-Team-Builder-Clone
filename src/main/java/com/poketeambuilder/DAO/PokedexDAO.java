@@ -88,17 +88,27 @@ public class PokedexDAO {
     }
 
     public void editPokemon(String pokemonName, Pokemon pokemon) {
-        /* 
-        String sql = "UPDATE gen3Pokemon" +
-        " SET pokedex_id = ?, pokemon_name = ?, pokemon_type = ?, hp = ?, attack = ?," + 
-        "defence = ?, special_attack = ?, special_defence = ?," 
-        + " speed = ?, total = ? WHERE pokemonName = ?";
-        jdbcTemplate.update(sql, pokemon.getPokedexID(), pokemon.getPokemonName(), 
-        pokemon.getPokemonType(), pokemon.getHp(), pokemon.getAttack(), 
-        pokemon.getDefence(), pokemon.getSpecialAttack(),
-        pokemon.getSpecialDefence(), pokemon.getSpeed(), pokemon.getTotal(),
-        pokemonName);   
-        */
+        String findTypeSql = "SELECT type_id FROM pokemonTypes WHERE pokemon_type_name = ?";
+        
+        int primaryPokemonType = jdbcTemplate.queryForObject(findTypeSql, 
+        Integer.class, pokemon.getPokemonPrimaryType());
+        Integer secondaryPokemonType = null;
+        if(pokemon.getPokemonSecondaryType() != null) {
+            secondaryPokemonType = jdbcTemplate.queryForObject(findTypeSql, 
+            Integer.class, pokemon.getPokemonSecondaryType());
+        }
+
+        String sql = "UPDATE pokemon " +
+        "SET pokemon_id = ?, pokemon_name = ?, pokemon_primary_type = ?, " +
+        "pokemon_secondary_type = ?, pokemon_hp = ?, pokemon_attack = ?, " + 
+        "pokemon_defence = ?, pokemon_special_attack = ?, pokemon_special_defence = ?, " +
+        "pokemon_speed = ?, pokemon_total = ? " +
+        "WHERE pokemon_name = ?";
+
+        jdbcTemplate.update(sql, pokemon.getPokedexID(), pokemon.getPokemonName(),
+        primaryPokemonType, secondaryPokemonType, pokemon.getHp(), pokemon.getAttack(),
+        pokemon.getDefence(), pokemon.getSpecialAttack(), pokemon.getSpecialDefence(),
+        pokemon.getSpeed(), pokemon.getTotal(), pokemonName);
     }
 
     public void deletePokemon(String pokemonName) {

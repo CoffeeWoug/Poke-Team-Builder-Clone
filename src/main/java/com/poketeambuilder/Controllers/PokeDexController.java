@@ -38,7 +38,7 @@ public class PokeDexController {
         pokedexService.createPokemon(pokemon);
     }
 
-    @PutMapping("/{pokemonName}")
+    @PutMapping("/pokemon/{pokemonName}")
     public void editPokemon(@PathVariable("pokemonName") String pokemonName, @RequestBody Pokemon pokemon) {
         pokedexService.editPokemon(pokemonName, pokemon);
     }
