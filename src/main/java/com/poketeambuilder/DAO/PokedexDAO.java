@@ -112,7 +112,7 @@ public class PokedexDAO {
     }
 
     public void deletePokemon(String pokemonName) {
-        String sql = "DELETE FROM gen3Pokemon WHERE pokemon_name = ?";
+        String sql = "DELETE FROM pokemon WHERE pokemon_name = ?";
         jdbcTemplate.update(sql, pokemonName);  
 
     }

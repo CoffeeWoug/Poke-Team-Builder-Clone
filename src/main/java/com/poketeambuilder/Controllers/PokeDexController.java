@@ -43,7 +43,7 @@ public class PokeDexController {
         pokedexService.editPokemon(pokemonName, pokemon);
     }
 
-    @DeleteMapping("/{pokemonName}")
+    @DeleteMapping("/pokemon/{pokemonName}")
     public void deletePokemon(@PathVariable("pokemonName") String pokemonName) {
         pokedexService.deletePokemon(pokemonName);
     } 
