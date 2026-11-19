@@ -29,18 +29,19 @@ public class PokedexDAO {
 
     public List<Pokemon> getAllPokemon() {
         String sql = "SELECT pokemon.pokemon_id, pokemon.pokemon_name, " +
-        "table_one.pokemon_type_name AS pokemon_primary_type, " +
-        "table_two.pokemon_type_name AS pokemon_secondary_type," +
+        "primary_type.pokemon_type_name AS pokemon_primary_type, " +
+        "secondary_type.pokemon_type_name AS pokemon_secondary_type," +
         "pokemon.pokemon_hp, pokemon.pokemon_attack, pokemon.pokemon_defence, " +
         "pokemon.pokemon_special_attack, pokemon.pokemon_special_defence, " +
         "pokemon.pokemon_speed, pokemon.pokemon_total " +
         "FROM pokemon " +
-        "INNER JOIN pokemonTypes AS table_one " +
-        "ON pokemon.pokemon_primary_type = table_one.type_id " +
-        "LEFT JOIN pokemonTypes AS table_two " +
-        "ON pokemon.pokemon_secondary_type = table_two.type_id " +
+        "INNER JOIN pokemonTypes AS primary_type " +
+        "ON pokemon.pokemon_primary_type = primary_type.type_id " +
+        "LEFT JOIN pokemonTypes AS secondary_type " +
+        "ON pokemon.pokemon_secondary_type = secondary_type.type_id " +
         "ORDER BY pokemon.pokemon_id";
-        List<Pokemon> pokemon = jdbcTemplate.query(sql, pokemonMapper);
+
+        List<Pokemon> pokemon = this.jdbcTemplate.query(sql, pokemonMapper);
         return pokemon;
     }
 
