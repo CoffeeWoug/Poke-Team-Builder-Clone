@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 
 import com.poketeambuilder.DTO.Pokemon;
 import com.poketeambuilder.Mappers.PokemonMapper;
@@ -14,9 +16,16 @@ public class PokedexDAO {
     
     private JdbcTemplate jdbcTemplate;
     private PokemonMapper pokemonMapper;
+    private TypeChartDAO typeChartDAO;
 
-    // SETTER INJECTION 
-    
+    // CONSTRUCTOR INJECTION
+    public PokedexDAO(TypeChartDAO typeChartDAO) {
+        this.typeChartDAO = typeChartDAO;
+        typeChartDAO.setTypeChart();
+        typeChartDAO.displayMap();
+    }
+
+    // SETTER INJECTION
     @Autowired
     public void setPokemonMapper(PokemonMapper pokemonMapper) {
         this.pokemonMapper = pokemonMapper;
@@ -41,7 +50,17 @@ public class PokedexDAO {
         "ON pokemon.pokemon_secondary_type = secondary_type.type_id " +
         "ORDER BY pokemon.pokemon_id";
 
-        List<Pokemon> pokemon = this.jdbcTemplate.query(sql, pokemonMapper);
+        List<Pokemon> pokemon = new ArrayList<>();
+        List<Map<String, Object>> pokemonQuery = jdbcTemplate.queryForList(sql);
+
+        for(Map<String, Object> pokemonRow : pokemonQuery) {
+            Pokemon currentPokemon = new Pokemon();
+            currentPokemon.setPokedexID((int) pokemonRow.get("pokemon_id"));
+            currentPokemon.setPokemonName((String) pokemonRow.get("pokemon_name"));
+            currentPokemon.setPokemonPrimaryType((String) pokemonRow.get("pokemon_primary_type"));
+            
+        }
+
         return pokemon;
     }
 
@@ -60,7 +79,8 @@ public class PokedexDAO {
         "LEFT JOIN pokemonTypes AS type_two " +
         "ON pokemon.pokemon_secondary_type = type_two.type_id " +
         "WHERE pokemon.pokemon_name = ?";
-        Pokemon pokemon = jdbcTemplate.queryForObject(sql, pokemonMapper, pokemonName); 
+        Pokemon pokemon = jdbcTemplate.queryForObject(sql, pokemonMapper, pokemonName);
+        pokemon.setWeaknesses(typeChartDAO.getWeaknesses(pokemon.getPokemonPrimaryType()));
         return pokemon;
     }
 
