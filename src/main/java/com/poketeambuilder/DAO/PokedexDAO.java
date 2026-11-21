@@ -22,7 +22,6 @@ public class PokedexDAO {
     public PokedexDAO(TypeChartDAO typeChartDAO) {
         this.typeChartDAO = typeChartDAO;
         typeChartDAO.setTypeChart();
-        typeChartDAO.displayMap();
     }
 
     // SETTER INJECTION
@@ -80,7 +79,16 @@ public class PokedexDAO {
         "ON pokemon.pokemon_secondary_type = type_two.type_id " +
         "WHERE pokemon.pokemon_name = ?";
         Pokemon pokemon = jdbcTemplate.queryForObject(sql, pokemonMapper, pokemonName);
-        pokemon.setWeaknesses(typeChartDAO.getWeaknesses(pokemon.getPokemonPrimaryType()));
+        if(pokemon.getPokemonSecondaryType() != null) {
+            pokemon.setWeaknesses(typeChartDAO.getWeaknesses(pokemon.getPokemonPrimaryType(),
+            pokemon.getPokemonSecondaryType()));
+            pokemon.setResistances(typeChartDAO.getResistances(pokemon.getPokemonPrimaryType()
+            , pokemon.getPokemonSecondaryType()));
+        } else {
+            pokemon.setWeaknesses(typeChartDAO.getWeaknesses(pokemon.getPokemonPrimaryType()));
+            pokemon.setResistances(typeChartDAO.getResistances(pokemon.getPokemonPrimaryType()));
+        }
+        
         return pokemon;
     }
 
