@@ -25,6 +25,9 @@ public class Pokemon {
     private String pokemonName;
     private String pokemonPrimaryType;
     private String pokemonSecondaryType;
+    private List<String> resistances;
+    private List<String> weaknesses;
+    private List<String> immunities;
     private int hp;
     private int attack;
     private int defence;
@@ -32,18 +35,23 @@ public class Pokemon {
     private int specialDefence;
     private int speed;
     private int total;
-    private List<String> resistances;
-    private List<String> weaknesses;
+    
 
     public Pokemon() {
 
     }
 
-    public Pokemon(int pokedexID, String pokemonName, String pokemonPrimaryType, String pokemonSecondaryType, int hp, int attack, int defence, int specialAttack, int specialDefence, int speed, int total, List<String> resistances, List<String> weaknesses) {
+    public Pokemon(int pokedexID, String pokemonName, String pokemonPrimaryType, 
+        String pokemonSecondaryType, List<String> resistances, List<String> weaknesses, 
+        List<String> immunities, int hp, int attack, int defence, int specialAttack, 
+        int specialDefence, int speed, int total) {
         this.pokedexID = pokedexID;
         this.pokemonName = pokemonName;
         this.pokemonPrimaryType = pokemonPrimaryType;
         this.pokemonSecondaryType = pokemonSecondaryType;
+        this.resistances = resistances;
+        this.weaknesses = weaknesses;
+        this.immunities = immunities;
         this.hp = hp;
         this.attack = attack;
         this.defence = defence;
@@ -51,8 +59,6 @@ public class Pokemon {
         this.specialDefence = specialDefence;
         this.speed = speed;
         this.total = total;
-        this.resistances = resistances;
-        this.weaknesses = weaknesses;
     }
 
     public int getPokedexID() {
@@ -85,6 +91,30 @@ public class Pokemon {
 
     public void setPokemonSecondaryType(String pokemonSecondaryType) {
         this.pokemonSecondaryType = pokemonSecondaryType;
+    }
+
+    public List<String> getResistances() {
+        return this.resistances;
+    }
+
+    public void setResistances(List<String> resistances) {
+        this.resistances = resistances;
+    }
+
+    public List<String> getWeaknesses() {
+        return this.weaknesses;
+    }
+
+    public void setWeaknesses(List<String> weaknesses) {
+        this.weaknesses = weaknesses;
+    }
+
+    public List<String> getImmunities() {
+        return this.immunities;
+    }
+
+    public void setImmunities(List<String> immunities) {
+        this.immunities = immunities;
     }
 
     public int getHp() {
@@ -143,21 +173,4 @@ public class Pokemon {
         this.total = total;
     }
 
-    public List<String> getResistances() {
-        return this.resistances;
-    }
-
-    public void setResistances(List<String> resistances) {
-        this.resistances = resistances;
-    }
-
-    public List<String> getWeaknesses() {
-        return this.weaknesses;
-    }
-
-    public void setWeaknesses(List<String> weaknesses) {
-        this.weaknesses = weaknesses;
-    }
-
-    
 }

@@ -57,7 +57,27 @@ public class PokedexDAO {
             currentPokemon.setPokedexID((int) pokemonRow.get("pokemon_id"));
             currentPokemon.setPokemonName((String) pokemonRow.get("pokemon_name"));
             currentPokemon.setPokemonPrimaryType((String) pokemonRow.get("pokemon_primary_type"));
+            currentPokemon.setPokemonSecondaryType((String) pokemonRow.get("pokemon_secondary_type"));
             
+            String primaryType = currentPokemon.getPokemonPrimaryType();
+            String secondaryType = currentPokemon.getPokemonSecondaryType();
+
+            if(currentPokemon.getPokemonSecondaryType() == null) {
+                currentPokemon.setResistances(typeChartDAO.getResistances(primaryType));
+                currentPokemon.setWeaknesses(typeChartDAO.getWeaknesses(primaryType));
+            } else {
+                currentPokemon.setResistances(typeChartDAO.getResistances(primaryType, secondaryType));
+                currentPokemon.setWeaknesses(typeChartDAO.getWeaknesses(primaryType,secondaryType));
+            }
+
+            currentPokemon.setHp((int) pokemonRow.get("pokemon_hp"));
+            currentPokemon.setAttack((int) pokemonRow.get("pokemon_attack"));
+            currentPokemon.setDefence((int) pokemonRow.get("pokemon_defence"));
+            currentPokemon.setSpecialAttack((int) pokemonRow.get("pokemon_special_attack"));
+            currentPokemon.setSpecialDefence((int) pokemonRow.get("pokemon_special_defence"));
+            currentPokemon.setSpeed((int) pokemonRow.get("pokemon_speed"));
+            currentPokemon.setTotal((int) pokemonRow.get("pokemon_total"));
+            pokemon.add(currentPokemon);
         }
 
         return pokemon;
