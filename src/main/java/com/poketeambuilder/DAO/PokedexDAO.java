@@ -107,6 +107,7 @@ public class PokedexDAO {
         } else {
             pokemon.setWeaknesses(typeChartDAO.getWeaknesses(pokemon.getPokemonPrimaryType()));
             pokemon.setResistances(typeChartDAO.getResistances(pokemon.getPokemonPrimaryType()));
+            pokemon.setImmunities(typeChartDAO.getImmunities(pokemon.getPokemonPrimaryType()));
         }
         
         return pokemon;

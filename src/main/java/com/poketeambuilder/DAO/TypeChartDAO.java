@@ -119,5 +119,38 @@ public class TypeChartDAO {
 
         return resistances;
     }
+
+    public List<String> getImmunities(String primaryType) {
+        List<PokemonTypeMatchUp> typeMatchups = typeChart.get(primaryType);
+        List<String> immunities = new ArrayList<>();
+
+        for(PokemonTypeMatchUp ptm : typeMatchups) {
+            BigDecimal totalDamage = ptm.getDamageMultiplier();
+            BigDecimal zero = new BigDecimal("0");
+
+            if(totalDamage.compareTo(zero) == 0) {
+                immunities.add(ptm.getAttackingType());
+            }
+        }
+
+        return immunities;
+    }
+
+    public List<String> getImmunities(String primaryType, String secondaryType) {
+        List<PokemonTypeMatchUp> primaryTypeMatchups = typeChart.get(primaryType);
+        List<PokemonTypeMatchUp> secondaryTypeMatchups = typeChart.get(secondaryType);
+        List<String> immunities = new ArrayList<>();
+
+        for(int i = 0; i < primaryTypeMatchups.size(); i++) {
+            BigDecimal primaryTypeDamage = primaryTypeMatchups.get(i).getDamageMultiplier();
+            BigDecimal secondaryTypeDamage = secondaryTypeMatchups.get(i).getDamageMultiplier();
+            
+            BigDecimal zero = new BigDecimal("0.0");
+
+            if() {
+                
+            }
+        }
+    }
  
 }
