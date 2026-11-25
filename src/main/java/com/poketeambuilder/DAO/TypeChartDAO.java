@@ -147,10 +147,14 @@ public class TypeChartDAO {
             
             BigDecimal zero = new BigDecimal("0.0");
 
-            if() {
-                
+            if(primaryTypeDamage.compareTo(zero) == 0 || secondaryTypeDamage.compareTo(zero) == 0) {
+                if(primaryTypeDamage.compareTo(zero) == 0) immunities.add(
+                    primaryTypeMatchups.get(i).getAttackingType());
+                if(secondaryTypeDamage.compareTo(zero) == 0) immunities.add(
+                    secondaryTypeMatchups.get(i).getAttackingType());
             }
         }
+        return immunities;
     }
  
 }

@@ -65,9 +65,11 @@ public class PokedexDAO {
             if(currentPokemon.getPokemonSecondaryType() == null) {
                 currentPokemon.setResistances(typeChartDAO.getResistances(primaryType));
                 currentPokemon.setWeaknesses(typeChartDAO.getWeaknesses(primaryType));
+                currentPokemon.setImmunities(typeChartDAO.getImmunities(primaryType));
             } else {
                 currentPokemon.setResistances(typeChartDAO.getResistances(primaryType, secondaryType));
                 currentPokemon.setWeaknesses(typeChartDAO.getWeaknesses(primaryType,secondaryType));
+                currentPokemon.setImmunities(typeChartDAO.getImmunities(primaryType, secondaryType));
             }
 
             currentPokemon.setHp((int) pokemonRow.get("pokemon_hp"));
@@ -104,10 +106,13 @@ public class PokedexDAO {
             pokemon.getPokemonSecondaryType()));
             pokemon.setResistances(typeChartDAO.getResistances(pokemon.getPokemonPrimaryType()
             , pokemon.getPokemonSecondaryType()));
+            pokemon.setImmunities(typeChartDAO.getImmunities(pokemon.getPokemonPrimaryType(),
+            pokemon.getPokemonSecondaryType()));
         } else {
             pokemon.setWeaknesses(typeChartDAO.getWeaknesses(pokemon.getPokemonPrimaryType()));
             pokemon.setResistances(typeChartDAO.getResistances(pokemon.getPokemonPrimaryType()));
             pokemon.setImmunities(typeChartDAO.getImmunities(pokemon.getPokemonPrimaryType()));
+            
         }
         
         return pokemon;
